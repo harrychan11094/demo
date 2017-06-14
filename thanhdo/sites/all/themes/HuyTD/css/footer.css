@@ -1,0 +1,34 @@
+footer{
+	background-color: #292727;
+	padding-bottom: 20px;
+	clear: both;
+}
+footer h4{
+	color: #FFF;
+	margin-top: 19%;
+}
+footer p{
+	font-size: 14pt;
+}
+footer a{
+	color: #5A5454
+}
+footer a:hover{
+	text-decoration: none;
+	color: #51BF61
+}
+footer hr{
+	border: none;
+	border-bottom: 1px solid#5A5454
+}
+footer .col-sm-2 a{
+	font-size: 15pt;
+}
+#copyright{
+	height: 50px;
+	background-color: #181717;
+	text-align: center;
+	padding-top: 1%;
+	font-size: 12pt;
+	color: #FFF;
+}

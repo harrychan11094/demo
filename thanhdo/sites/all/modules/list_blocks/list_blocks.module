@@ -1,0 +1,75 @@
+<?php
+/**
+ * @file list_blocks.module
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function list_blocks_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#list_blocks':
+      return t("List Blocks");
+    // OPTIONAL: Add additional cases for other paths that should display help text.
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function list_blocks_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'block_admin_configure' || $form_id == 'block_add_block_form') {
+    $form['settings']['list_blocks'] = array(
+
+      '#type' => 'fieldset', 
+
+      '#title' => t('List of blocks'), 
+
+      '#collapsible' => TRUE, 
+
+      '#collapsed' => TRUE,
+	  
+	  '#tree' => TRUE,	
+	  
+	  '#value' => lb_get_blocks(),
+
+    );
+  }
+}
+
+function lb_get_blocks(){
+	global $theme_key;
+	$result = db_query("SELECT * FROM {block} WHERE theme = ':theme'", array(':theme' => $theme_key));
+	$blocks = array();
+	foreach($result as $bl){
+		$blocks[$bl->module][$bl->delta]['has'] = TRUE;
+		$blocks[$bl->module][$bl->delta]['info'] = $bl->title;
+	}
+	
+	foreach (module_list() as $module) {
+		$module_blocks = module_invoke($module, 'block_info');
+		if ($module_blocks) {
+			foreach($module_blocks as $delta => $bl){
+				if(!isset($blocks[$module][$delta]['has']) || !$blocks[$module][$delta]['has']){
+					$blocks[$module][$delta]['has'] = TRUE;
+					$blocks[$module][$delta]['info'] = $bl['info'];
+				}
+			}
+		}
+	}
+
+	$header = array(t('Block title'), t('Token'));
+	$rows    = array();
+	foreach($blocks as $module => $bl){
+		foreach($bl as $delta => $bl_info){
+			$row = array();
+			$row[] = $bl_info['info'];
+			$row[] = '[block:' . $module . '=' . $delta . ']';
+			$rows[] = $row;
+		}
+	}
+	
+	drupal_add_js(drupal_get_path('module', 'list_blocks') . '/list_blocks.js');
+	return theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('list-blocks'))));
+}

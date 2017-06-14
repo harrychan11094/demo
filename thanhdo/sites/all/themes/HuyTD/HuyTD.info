@@ -1,0 +1,9 @@
+name = HuyTD theme
+description  = My themes
+core = 7.x
+version = 1.0
+
+regions[header] = Header
+regions[main_menu] = Main menu
+regions[content] = Content
+regions[footer] = Footer

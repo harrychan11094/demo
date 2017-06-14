@@ -1,0 +1,5 @@
+name = List Blocks
+description = List Blocks
+dependencies[] = insert_block
+core = 7.x
+files[] = list_blocks.module

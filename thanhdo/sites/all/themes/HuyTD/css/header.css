@@ -1,0 +1,30 @@
+header .navbar-inverse{
+	background-color: rgba(70,149,199,0.7);
+	border: none;
+	border-radius: 0px;
+}
+nav ul li a{
+	font-size: 12pt;
+	text-transform: uppercase;
+	color: #FFF;
+	margin-left: 60px;
+}
+header nav .navbar-left li a:hover{
+	color: #4DA97F;
+}
+header .container{
+	padding:20px 0px;
+}
+input[type="text"]{
+	border: none;
+	border-bottom: 1px solid#DDD;
+	width:50%;
+	padding-left: 10px;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+button{
+	border: none;
+	background-color: #FFF;
+	margin-top: 15px;
+}
